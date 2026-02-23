@@ -1,15 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react"; // ← ajoute useEffect
-import { useNavigate } from "react-router-dom"; // ← ajoute useNavigate
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../redux/authSlice";
-import API from "../services/api"; // ← ajoute l'import API
+import API from "../services/api";
 
 function Profile() {
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ← ajoute ça
+  const navigate = useNavigate();
 
-  // ← ajoute ce useEffect AVANT le if (!isAuthenticated)
   useEffect(() => {
     if (token && !user) {
       API.get("/user/profile", {
