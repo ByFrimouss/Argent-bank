@@ -16,34 +16,52 @@ function Login() {
       const response = await API.post("/user/login", { email, password });
       const { body, token } = response.data;
 
-      dispatch(loginSuccess({ user: body, token })); // stocke user + token dans Redux
-      navigate("/profile"); // redirige vers le profil
+      dispatch(loginSuccess({ user: body, token }));
+      navigate("/profile");
     } catch (err) {
-      console.error(err);
       alert("Erreur de connexion");
     }
   };
 
   return (
-    <main>
-      <h1>Connexion</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Se connecter</button>
-      </form>
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
+        <h1>Sign In</h1>
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="email">Username</label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-remember">
+            <input type="checkbox" id="remember-me" />
+            <label htmlFor="remember-me">Remember me</label>
+          </div>
+
+          <button type="submit" className="sign-in-button">
+            Sign In
+          </button>
+        </form>
+      </section>
     </main>
   );
 }
