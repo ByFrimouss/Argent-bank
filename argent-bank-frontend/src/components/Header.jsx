@@ -4,8 +4,10 @@ import { logout } from "../redux/authSlice";
 import logo from "../assets/argentBankLogo.png";
 
 function Header() {
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  // console.log("auth state:", user, isAuthenticated);
 
   return (
     <nav className="main-nav">
@@ -19,15 +21,17 @@ function Header() {
       </Link>
 
       <div>
-        {isLoggedIn ? (
+        {isAuthenticated && user ? (
           <>
             <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>
               {user.firstName}
             </Link>
+
             <button
               className="main-nav-item"
               onClick={() => dispatch(logout())}
+              style={{ background: "none", border: "none" }}
             >
               <i className="fa fa-sign-out"></i>
               Sign Out

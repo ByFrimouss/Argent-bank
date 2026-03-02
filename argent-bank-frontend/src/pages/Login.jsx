@@ -12,13 +12,36 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await API.post("/user/login", { email, password });
-      const { body, token } = response.data;
 
-      dispatch(loginSuccess({ user: body, token }));
+    try {
+      // LOGIN → récupère token
+      const loginResponse = await API.post("/user/login", {
+        email,
+        password,
+      });
+
+      const token = loginResponse.data.body.token;
+
+      // PROFILE → récupère infos user
+      const profileResponse = await API.post(
+        "/user/profile",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const user = profileResponse.data.body;
+
+      console.log("Token reçu :", token);
+      // Stocke user + token dans Redux
+      dispatch(loginSuccess({ user, token }));
+
       navigate("/profile");
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       alert("Erreur de connexion");
     }
   };
@@ -33,7 +56,7 @@ function Login() {
           <div className="input-wrapper">
             <label htmlFor="email">Username</label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -50,11 +73,6 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>
-
-          <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
-            <label htmlFor="remember-me">Remember me</label>
           </div>
 
           <button type="submit" className="sign-in-button">

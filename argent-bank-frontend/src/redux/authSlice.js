@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
   isAuthenticated: !!localStorage.getItem("token"),
+  isInitialized: false,
   isLoading: false,
   error: null,
 };
@@ -36,6 +37,9 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.removeItem("token");
     },
+    setInitialized: (state) => {
+      state.isInitialized = true;
+    },
   },
 });
 
@@ -45,6 +49,7 @@ export const {
   loginFailure,
   updateUserProfile,
   logout,
+  setInitialized,
 } = authSlice.actions;
 
 export default authSlice.reducer;

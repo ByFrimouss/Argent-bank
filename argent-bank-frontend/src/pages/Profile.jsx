@@ -1,30 +1,46 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginSuccess } from "../redux/authSlice";
+import { loginSuccess, logout } from "../redux/authSlice";
 import API from "../services/api";
 
 function Profile() {
-  const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token && !user) {
-      API.get("/user/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => dispatch(loginSuccess({ user: res.data.body, token })))
-        .catch(() => navigate("/login"));
-    }
-  }, []);
-
   const [isEditing, setIsEditing] = useState(false);
-  const [firstName, setFirstName] = useState(user?.firstName || "");
-  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  if (!isAuthenticated) {
-    return <p className="profile__error">Veuillez vous connecter.</p>;
+  // Sécurité d'accès
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    if (token && !user) {
+      API.post(
+        "/user/profile",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      )
+        .then((res) => {
+          dispatch(loginSuccess({ user: res.data.body, token }));
+        })
+        .catch(() => {
+          dispatch(logout());
+          navigate("/login");
+        });
+    }
+  }, [token, user, dispatch, navigate]);
+
+  // Tant que le user n'est pas chargé → on attend
+  if (!user) {
+    return <p style={{ color: "white", textAlign: "center" }}>Chargement...</p>;
   }
 
   const handleSave = () => {
@@ -47,7 +63,14 @@ function Profile() {
               <br />
               {user.firstName} {user.lastName}!
             </h1>
-            <button className="edit-button" onClick={() => setIsEditing(true)}>
+            <button
+              className="edit-button"
+              onClick={() => {
+                setFirstName(user.firstName);
+                setLastName(user.lastName);
+                setIsEditing(true);
+              }}
+            >
               Edit Name
             </button>
           </>
@@ -71,7 +94,6 @@ function Profile() {
           </>
         )}
       </div>
-
       <section className="account">
         <div className="account-content-wrapper">
           <h3 className="account-title">Argent Bank Checking (x8349)</h3>
