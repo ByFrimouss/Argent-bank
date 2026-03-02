@@ -46,6 +46,12 @@ function App() {
           path="/profile"
           element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/transactions/:accountId" // ← :accountId pour savoir quel compte
+          element={
+            isAuthenticated ? <Transactions /> : <Navigate to="/login" />
+          }
+        />
       </Routes>
       <Footer />
     </Router>
