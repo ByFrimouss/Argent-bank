@@ -1,6 +1,7 @@
 // Hooks React et Redux pour état global et effets de bord
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Transactions from "./pages/Transactions";
 
 // Composants de routing React Router
 import {

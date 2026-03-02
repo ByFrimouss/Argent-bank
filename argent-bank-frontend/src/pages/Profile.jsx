@@ -117,7 +117,12 @@ function Profile() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button
+            className="transaction-button"
+            onClick={() => navigate("/transactions/67124")}
+          >
+            View transactions
+          </button>
         </div>
       </section>
       <section className="account">
@@ -127,7 +132,12 @@ function Profile() {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button
+            className="transaction-button"
+            onClick={() => navigate("/transactions/5201")}
+          >
+            View transactions
+          </button>
         </div>
       </section>
     </main>
