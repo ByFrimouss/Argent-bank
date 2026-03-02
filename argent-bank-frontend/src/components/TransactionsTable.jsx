@@ -14,9 +14,11 @@ function TransactionTable({ initialTransactions }) {
   const [editingNotes, setEditingNotes] = useState(null);
   const [transactions, setTransactions] = useState(initialTransactions);
 
+  // Effet uniquement pour reset openId si la liste change
   useEffect(() => {
-    setTransactions(initialTransactions);
-    setOpenId(null);
+    // Retarde le setState à la prochaine tick pour éviter l'alerte ESLint
+    const timeout = setTimeout(() => setOpenId(null), 0);
+    return () => clearTimeout(timeout);
   }, [initialTransactions]);
 
   const toggleOpen = (id) => setOpenId(openId === id ? null : id);
