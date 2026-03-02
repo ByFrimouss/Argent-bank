@@ -26,7 +26,7 @@ function TransactionDetail({
   return (
     <div style={{ padding: "10px 20px 20px 60px", background: "#f9f9f9" }}>
       {/* Type — lecture seule, non modifiable selon les specs */}
-      <p style={{ margin: "5px 0" }}>
+      <p style={{ margin: "5px 0", textAlign: "left" }}>
         <strong>Transaction Type:</strong> {transaction.type}
       </p>
 

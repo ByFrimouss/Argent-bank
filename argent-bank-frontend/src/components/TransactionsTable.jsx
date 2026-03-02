@@ -9,16 +9,9 @@ import TransactionRow from "./TransactionRow";
  * @param {array} initialTransactions - Liste des transactions à afficher
  */
 function TransactionTable({ initialTransactions }) {
-  // Id de la ligne actuellement ouverte (une seule à la fois)
   const [openId, setOpenId] = useState(null);
-
-  // Id de la transaction dont la catégorie est en cours d'édition
   const [editingCategory, setEditingCategory] = useState(null);
-
-  // Id de la transaction dont les notes sont en cours d'édition
   const [editingNotes, setEditingNotes] = useState(null);
-
-  // Copie locale des transactions pour permettre l'édition sans API
   const [transactions, setTransactions] = useState(initialTransactions);
 
   useEffect(() => {
@@ -28,10 +21,6 @@ function TransactionTable({ initialTransactions }) {
 
   const toggleOpen = (id) => setOpenId(openId === id ? null : id);
 
-  /**
-   * Met à jour la catégorie d'une transaction localement.
-   * TODO: remplacer par un appel PATCH /transactions/:id quand l'API sera prête
-   */
   const saveCategory = (id, value) => {
     setTransactions(
       transactions.map((t) => (t.id === id ? { ...t, category: value } : t)),
@@ -39,10 +28,6 @@ function TransactionTable({ initialTransactions }) {
     setEditingCategory(null);
   };
 
-  /**
-   * Met à jour les notes d'une transaction localement.
-   * TODO: remplacer par un appel PATCH /transactions/:id quand l'API sera prête
-   */
   const saveNotes = (id, value) => {
     setTransactions(
       transactions.map((t) => (t.id === id ? { ...t, notes: value } : t)),
@@ -51,19 +36,9 @@ function TransactionTable({ initialTransactions }) {
   };
 
   return (
-    <section style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px" }}>
-      {/* En-tête fixe du tableau */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "40px 1fr 1fr 1fr 1fr",
-          padding: "10px 20px",
-          color: "#aaa",
-          fontSize: 14,
-          fontWeight: "bold",
-          borderBottom: "1px solid #ccc",
-        }}
-      >
+    <section className="transaction-table">
+      {/* En-tête du tableau */}
+      <div className="transaction-table-header">
         <span></span>
         <span>DATE</span>
         <span>DESCRIPTION</span>
@@ -71,7 +46,7 @@ function TransactionTable({ initialTransactions }) {
         <span>BALANCE</span>
       </div>
 
-      {/* Rendu de chaque ligne de transaction */}
+      {/* Lignes de transaction */}
       {transactions.map((transaction) => (
         <TransactionRow
           key={transaction.id}
@@ -84,6 +59,8 @@ function TransactionTable({ initialTransactions }) {
           onSaveNotes={saveNotes}
           setEditingCategory={setEditingCategory}
           setEditingNotes={setEditingNotes}
+          className="transaction-row"
+          detailClassName="transaction-detail"
         />
       ))}
     </section>

@@ -87,8 +87,15 @@ function Profile() {
                 onChange={(e) => setLastName(e.target.value)}
               />
               <div>
-                <button onClick={handleSave}>Save</button>
-                <button onClick={() => setIsEditing(false)}>Cancel</button>
+                <button className="save-button" onClick={handleSave}>
+                  Save
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </>
