@@ -1,4 +1,5 @@
 import TransactionDetail from "./TransactionDetail";
+import "./TransactionRow.scss";
 /** * Représente une ligne de transaction avec comportement accordéon. * Au clic, affiche ou masque le détail (TransactionDetail). * * @param {object} transaction - Objet transaction complet * @param {boolean} isOpen - Si true, le détail est affiché * @param {function} onToggle - Callback pour ouvrir/fermer l'accordéon * + props transmises à TransactionDetail (édition catégorie/notes) */ function TransactionRow({
   transaction,
   isOpen,

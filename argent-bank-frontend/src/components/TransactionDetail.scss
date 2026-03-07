@@ -1,0 +1,16 @@
+/* Détail accordéon */
+.transaction-detail {
+  padding: 15px 30px 20px 60px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Ajustements responsive */
+@media (max-width: 720px) {
+  .transaction-table-header,
+  .transaction-row {
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr;
+    font-size: 13px;
+    padding: 12px 15px;
+  }
+}

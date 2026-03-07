@@ -1,0 +1,13 @@
+/* Lignes de transactions */
+.transaction-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 1fr 1fr;
+  padding: 18px 20px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-row:hover {
+  background-color: #f9f9f9;
+}

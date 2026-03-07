@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginSuccess, logout } from "../redux/authSlice";
 import API from "../services/api";
+import "./Profile.scss";
 
 function Profile() {
   const { user, token } = useSelector((state) => state.auth);
@@ -43,14 +44,23 @@ function Profile() {
     return <p style={{ color: "white", textAlign: "center" }}>Chargement...</p>;
   }
 
-  const handleSave = () => {
-    dispatch(
-      loginSuccess({
-        user: { ...user, firstName, lastName },
-        token,
-      }),
-    );
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      // Appel API PUT pour sauvegarder en BDD
+      const res = await API.put(
+        "/user/profile",
+        { firstName, lastName },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      // Mettre à jour Redux avec la réponse confirmée par le serveur
+      dispatch(loginSuccess({ user: res.data.body, token }));
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde :", error);
+    }
   };
 
   return (

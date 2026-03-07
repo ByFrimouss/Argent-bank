@@ -1,3 +1,4 @@
+import "./AccountHeader.scss";
 /**
  * Affiche l'en-tête de la page Transactions :
  * nom du compte, solde et type de solde (disponible / actuel).

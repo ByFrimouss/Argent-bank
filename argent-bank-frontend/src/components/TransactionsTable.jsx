@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import TransactionRow from "./TransactionRow";
+import "./TransactionsTable.scss";
 
 /**
  * Gère la liste des transactions et l'état de l'accordéon.
@@ -16,7 +17,7 @@ function TransactionTable({ initialTransactions }) {
 
   // Effet uniquement pour reset openId si la liste change
   useEffect(() => {
-    // Retarde le setState à la prochaine tick pour éviter l'alerte ESLint
+    // Retarde le setState à la prochaine tick
     const timeout = setTimeout(() => setOpenId(null), 0);
     return () => clearTimeout(timeout);
   }, [initialTransactions]);

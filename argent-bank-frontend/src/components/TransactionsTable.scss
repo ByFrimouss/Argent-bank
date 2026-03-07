@@ -1,0 +1,24 @@
+/* Container du tableau */
+.transaction-table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête du tableau */
+.transaction-table-header {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 1fr 1fr;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  border-bottom: 2px solid #ddd;
+  background-color: #f5f5f5;
+  border-radius: 6px 6px 0 0;
+}

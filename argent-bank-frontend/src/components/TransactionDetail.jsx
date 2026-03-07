@@ -1,4 +1,5 @@
 import { CATEGORIES } from "../services/mockTransactions";
+import "./TransactionDetail.scss";
 
 /**
  * Affiche le détail d'une transaction dans l'accordéon :

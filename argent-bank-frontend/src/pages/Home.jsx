@@ -2,6 +2,7 @@ import FeatureItem from "../components/FeatureItem";
 import iconChat from "../assets/icon-chat.png";
 import iconMoney from "../assets/icon-money.png";
 import iconSecurity from "../assets/icon-security.png";
+import "./Home.scss";
 
 function Home() {
   return (

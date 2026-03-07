@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AccountHeader from "../components/AccountHeader";
 import TransactionTable from "../components/TransactionsTable";
 import { MOCK_TRANSACTIONS, ACCOUNTS_INFO } from "../services/mockTransactions";
+import "./Transactions.scss";
 
 /**
  * Page Transactions — affiche les transactions d'un compte bancaire spécifique.

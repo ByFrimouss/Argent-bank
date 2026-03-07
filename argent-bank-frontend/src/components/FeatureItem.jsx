@@ -1,3 +1,5 @@
+import "./FeatureItem.scss";
+
 function FeatureItem({ icon, alt, title, children }) {
   return (
     <div className="feature-item">
